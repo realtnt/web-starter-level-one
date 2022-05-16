@@ -16,19 +16,24 @@ class WebApplicationServer < Sinatra::Base
     # This sets up the right content type for plain text responses
     content_type 'text/plain'
 
-    # This sets up the global state. You will use this for your data model.
+    # This sets up the global data store. You will use this for your data model.
     # In future you will use a database instead.
     $global ||= {}
   end
 
-  # YOUR ROUTES GO BELOW THIS LINE
-
-
-
-  # EXAMPLE ROUTES ARE BELOW THIS LINE
-
   # Start your server using `rackup`.
   # It will sit there waiting for requests. It isn't broken!
+
+  # YOUR CODE GOES BELOW THIS LINE
+
+  # ...
+
+  # This is an example of setting up a new instance using the global data store.
+  # def your_data_model
+  #   $global[:your_data_model] ||= YourDataModel.new
+  # end
+
+  # EXAMPLE ROUTES
 
   # Try: `curl localhost:9292/example`
   get '/example' do

@@ -32,7 +32,7 @@ Use Ctrl-C to stop
 ; curl localhost:9292/example
 ```
 
-Take a look around `app.rb` and `example_spec.rb` to see how they work. Then
+Take a look around `app.rb` and `web/example_spec.rb` to see how they work. Then
 open up `recipe/recipe.md` and get started.
 
 
