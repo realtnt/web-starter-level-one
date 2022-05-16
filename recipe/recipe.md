@@ -50,7 +50,8 @@ _Check it against these rules:_
 >    5. Delete an item (D)
 > 3. Does each method take only simple data types as arguments?  
 >    Simple data types are: string, number, boolean.  
->    Methods can return lists, hashes & other objects, but take them as parameters.
+>    Methods can return lists, hashes & other objects, but not take them as
+>    parameters.
 > 
 > Some of these rules will be relaxed later but will keep you safe for now.
 
