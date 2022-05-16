@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-# gem "rails"
+ruby "3.1.2"
 
 gem "puma", "~> 5.6"
 gem "sinatra", "~> 2.2"

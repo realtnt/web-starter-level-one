@@ -2,10 +2,10 @@
 
 This is a starter codebase for building Level One web applications. It uses
 
-* Ruby (the language)
-* RSpec (the testing tool)
-* Sinatra (the web framework)
-* Rack::Test (the web testing tool)
+* `Ruby` (the language)
+* `RSpec` (the testing tool)
+* `Sinatra` (the web framework)
+* `Rack::Test` (the web testing tool)
 
 It comes with a design recipe in [`recipe/recipe.md`](recipe/recipe.md)
 
