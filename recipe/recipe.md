@@ -1,4 +1,4 @@
-# {{PROBLEM}} Web Design Recipe (Level One)
+# Todo List Web Design Recipe (Level One)
 
 ## 1. Describe the Problem
 
@@ -134,9 +134,25 @@ Request: GET /todos
   1. Walk the dog
   2. Walk the frog
   """
+
+# 3 - Adding multiple todos, updating one, and listing them
+Request: POST /todos
+  Data: { task: "Walk the dog" }
+Request: POST /todos
+  Data: { task: "Walk the cat" }
+Request: POST /todos
+  Data: { task: "Walk the frog" }
+Request: PATCH /todos/2
+  Data: { task: "Walk the zebra" }
+Request: GET /todos
+  Response: """
+  1. Walk the dog
+  2. Walk the zebra
+  2. Walk the frog
+  """
 ```
 
-## 5. Translate the Examples to Tests
+## 5. Translate the Examples to Web Tests
 
 _Translate your examples to tests using `Rack::Test`_
 
@@ -149,13 +165,20 @@ RSpec.describe "Todo Application" do
     expect(last_response.body).to eq "You have nothing to do."
   end
 end
-
 ```
 
 ## 6. Implement the Behaviour
 
-_After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour._
-_As you test-drive you will need to implement your data model class too._
+_Follow this cycle:_
+
+1. Add a web test in `/spec/web/` (RED)
+2. Implement the behaviour in `app.rb`
+3. Does it pass without data model changes? (GREEN) Then skip to step 6.
+4. Otherwise, add a unit test for the data model to `/spec/unit` (RED)
+5. Implement the behaviour in your data model class. (GREEN)
+6. Apply any refactors to improve the structure of the code. (REFACTOR)  
+   Run `rubocop` as part of this.
+7. Go back to step 1.
 
 
 <!-- BEGIN GENERATED SECTION DO NOT EDIT -->

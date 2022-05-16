@@ -1,6 +1,6 @@
 # Level One Web Application Starter Codebase
 
-This is a starter codebase for building Level One web applications. It uses
+This is a starter codebase for building plain text web applications. It uses:
 
 * `Ruby` (the language)
 * `RSpec` (the testing tool)

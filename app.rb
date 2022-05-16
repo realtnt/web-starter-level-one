@@ -15,7 +15,17 @@ class WebApplicationServer < Sinatra::Base
   before do
     # This sets up the right content type for plain text responses
     content_type 'text/plain'
+
+    # This sets up the global state. You will use this for your data model.
+    # In future you will use a database instead.
+    $global ||= {}
   end
+
+  # YOUR ROUTES GO BELOW THIS LINE
+
+
+
+  # EXAMPLE ROUTES ARE BELOW THIS LINE
 
   # Start your server using `rackup`.
   # It will sit there waiting for requests. It isn't broken!

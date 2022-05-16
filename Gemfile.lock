@@ -62,6 +62,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-darwin-21
 
 DEPENDENCIES
   puma (~> 5.6)
@@ -72,7 +73,7 @@ DEPENDENCIES
   sinatra-contrib (~> 2.2)
 
 RUBY VERSION
-   ruby 3.0.2p107
+   ruby 3.1.2p20
 
 BUNDLED WITH
    2.3.6
