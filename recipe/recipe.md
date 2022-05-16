@@ -1,0 +1,169 @@
+# {{PROBLEM}} Web Design Recipe (Level One)
+
+## 1. Describe the Problem
+
+_Put or write the user story here. Add any clarifying notes you might have._
+
+## 2. Design the Data Model Class
+
+_This class should store and manage the data the server will hold._
+_Include the initializer and public methods with all parameters and return values._
+
+```ruby
+# EXAMPLE
+
+class TodoList
+  def initialize
+  end
+
+  def all
+    # Returns a list of strings
+  end
+
+  def add(task) # task is a string
+    # No return value
+  end
+
+  def get(index) # index is a number
+    # Returns a string, the task at the given index
+  def
+
+  def update(index, new_task) # index is a number, new_task is a string
+    # Updates the task at index to be the text new_task
+    # No return value
+  end
+
+  def remove(index) # index is a number
+    # Deletes the task at index
+  end
+end
+```
+
+_Check it against these rules:_
+
+> 1. Does it represent a collection (list or hash) of data?
+> 2. Does it _at least_ have methods to:
+>    1. List out all items in the resource
+>    2. Create an item (C)
+>    3. Get a single item (R)
+>    4. Update an item (U)
+>    5. Delete an item (D)
+> 3. Does each method take only simple data types as arguments?  
+>    Simple data types are: string, number, boolean.  
+>    Methods can return lists, hashes & other objects, but take them as parameters.
+> 
+> Some of these rules will be relaxed later but will keep you safe for now.
+
+## 3. Design the Web API (Requests)
+
+_Design requests that perform each of the operations on your model class._
+_Map them to the methods in your class._
+
+```ruby
+# EXAMPLE
+
+# Request: GET /todos
+todo_list.all
+
+# GET /todos/:index
+todo_list.get(index)
+
+# POST /todos
+# With data: { task: "Walk the dog" }
+reminder.add(task)
+
+# PATCH /todos/:index
+# With data: { task: "Walk the cat" }
+reminder.update(index, task)
+
+# DELETE /todos/:index
+reminder.remove(index)
+```
+
+> Remember:
+> GET: Getting a single item or a list of items
+> POST: Adding an item
+> PATCH: Updating an item
+> DELETE: Deleting an item
+
+## 4. Create Examples
+
+_Create examples of the requests and their responses in different scenarios._
+
+```ruby
+# EXAMPLE
+
+# 1 - Getting an empty list of todos
+Request: GET /todos
+Response: """
+You have nothing to do.
+"""
+
+# 2 - Adding a todo and listing it
+Request: POST /todos
+  Data: { task: "Walk the dog" }
+Request: GET /todos
+  Response: """
+  1. Walk the dog
+  """
+
+# 3 - Adding multiple todos and listing them
+Request: POST /todos
+   Data: { task: "Walk the dog" }
+Request: POST /todos
+   Data: { task: "Walk the cat" }
+Request: POST /todos
+   Data: { task: "Walk the frog" }
+Request: GET /todos
+  Response: """
+  1. Walk the dog
+  2. Walk the cat
+  3. Walk the frog
+  """
+
+# 3 - Adding multiple todos, deleting one, and listing them
+Request: POST /todos
+  Data: { task: "Walk the dog" }
+Request: POST /todos
+  Data: { task: "Walk the cat" }
+Request: POST /todos
+  Data: { task: "Walk the frog" }
+Request: DELETE /todos/2
+Request: GET /todos
+  Response: """
+  1. Walk the dog
+  2. Walk the frog
+  """
+```
+
+## 5. Translate the Examples to Tests
+
+_Translate your examples to tests using `Rack::Test`_
+
+```ruby
+# EXAMPLE
+
+RSpec.describe "Todo Application" do
+  it "gets an empty list of todos" do
+    get "/todos"
+    expect(last_response.body).to eq "You have nothing to do."
+  end
+end
+
+```
+
+## 6. Implement the Behaviour
+
+_After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour._
+_As you test-drive you will need to implement your data model class too._
+
+
+<!-- BEGIN GENERATED SECTION DO NOT EDIT -->
+
+---
+
+**How was this resource?**  
+[😫](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy/web-starter-level-one&prefill_File=recipe/recipe.md&prefill_Sentiment=😫) [😕](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy/web-starter-level-one&prefill_File=recipe/recipe.md&prefill_Sentiment=😕) [😐](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy/web-starter-level-one&prefill_File=recipe/recipe.md&prefill_Sentiment=😐) [🙂](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy/web-starter-level-one&prefill_File=recipe/recipe.md&prefill_Sentiment=🙂) [😀](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy/web-starter-level-one&prefill_File=recipe/recipe.md&prefill_Sentiment=😀)  
+Click an emoji to tell us.
+
+<!-- END GENERATED SECTION DO NOT EDIT -->
