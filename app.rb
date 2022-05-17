@@ -2,69 +2,67 @@
 # when we have changed the file.
 require 'sinatra/base'
 require 'sinatra/reloader'
-
-# You will want to require your data model class here
+require 'todo_list'
 
 class WebApplicationServer < Sinatra::Base
   configure :development do
-    # In development mode (which you will be running) this enables the tool
-    # to reload the server when your code changes
     register Sinatra::Reloader
   end
 
   before do
     # This sets up the right content type for plain text responses
     content_type 'text/plain'
-
-    # This sets up the global data store. You will use this for your data model.
-    # In future you will use a database instead.
     $global ||= {}
   end
 
-  # Start your server using `rackup`.
-  # It will sit there waiting for requests. It isn't broken!
-
-  # YOUR CODE GOES BELOW THIS LINE
-
-  # ...
-
-  # This is an example of setting up a new instance using the global data store.
-  # def your_data_model
-  #   $global[:your_data_model] ||= YourDataModel.new
-  # end
-
-  # EXAMPLE ROUTES
-
-  # Try: `curl localhost:9292/example`
-  get '/example' do
-    return "This is an example response.\n"
+  def todo_list
+    return $global[:todo_list] ||= TodoList.new
   end
 
-  # Try: `curl -X POST -d "hello=world&happy=days" localhost:9292/example`
-  post '/example' do
-    output = "Thanks for the POST request to /example.\n\n"
-    output += "Your params were:\n"
-    output += params.to_s
-    output += "\n\nTry changing the request and see what happens.\n"
-    return output
+  get '/todos' do
+    todo_list.has?(1)
+    return "You have no tasks to do.\n" if todo_list.all.empty?
+    return todo_list.all.map.with_index(1) { |todo, i| "#{i}. #{todo}\n" }
   end
 
-  # Try: `curl -X PATCH -d "hello=world&happy=days" localhost:9292/example/99`
-  patch '/example/:id' do
-    output = "Thanks for the PATCH request to /example/#{params[:id]}.\n\n"
-    output += "Your params were:\n"
-    output += params.to_s
-    output += "\n\nSee how the `:id` in the URL got into that list?\n"
-    output += "Try changing the request and see what happens.\n"
-    return output
+  get '/todos/:id' do
+    task_index = params[:id].to_i - 1
+    return "#{todo_list.get(task_index)}\n" if todo_list.has?(task_index)
+    status 404
+    return "Four - Oh no - four! Task does not exist!\n"
   end
 
-  # Try: `curl -X DELETE localhost:9292/example/99`
-  delete '/example/:id' do
-    output = "Thanks for the DELETE request to /example/#{params[:id]}.\n\n"
-    output += "Your params were:\n"
-    output += params.to_s
-    output += "\n\nTry changing the request and see what happens.\n"
-    return output
+  post '/todos' do
+    task_name = todo_list.add(params[:task])
+    return "#{task_name}\n"
+  end
+
+  delete '/todos/:id' do
+    task_index = params[:id].to_i - 1
+    return task_not_found! unless todo_list.has?(task_index)
+    task_name = todo_list.remove(task_index) 
+    return "Removed: #{task_name}.\n"
+  end
+
+  patch '/todos/:id' do
+    task_index = params[:id].to_i - 1
+    return task_not_found! unless todo_list.has?(task_index)
+    task_name = todo_list.update(task_index, params[:task])
+    return "Updated: #{task_name}.\n"
+  end
+
+  post '/todos/all' do
+    todo_list.remove_all
+    return "Removed all tasks.\n"
+  end
+
+  def task_not_found!
+    status 404
+    return "Four - Oh no - four! Task does not exist!\n"
   end
 end
+
+# curl localhost:9292/todos
+# curl -X DELETE localhost:9292/todos/2
+# curl -X POST -d 'task=walk the frog' localhost:9292/todos
+# curl -X PATCH -d 'task=walk the fish' localhost:9292/todos/1
